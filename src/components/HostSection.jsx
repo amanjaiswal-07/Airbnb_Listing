@@ -53,7 +53,7 @@ export default function HostSection({ host, onMessage }) {
           <ul className="host__facts">
             {host.facts.map((f) => (
               <li key={f.text}>
-                <Icon name={f.icon} size={24} strokeWidth={1.6} />
+                <Icon name={f.icon} size={24} strokeWidth={2} />
                 {f.text}
               </li>
             ))}
@@ -79,7 +79,7 @@ export default function HostSection({ host, onMessage }) {
           </button>
 
           <p className="host__protect">
-            <Icon name="shield" size={24} strokeWidth={1.6} />
+            <Icon name="shield" size={24} strokeWidth={2} />
             To help protect your payment, always use Airbnb to send money and communicate with hosts.
           </p>
         </div>

@@ -64,7 +64,7 @@ export default function Overview({ listing, onShowDescription, onShowAmenities, 
       <ul className="highlights section">
         {listing.highlights.map((h) => (
           <li key={h.title} className="highlights__item">
-            <Icon name={h.icon} size={24} strokeWidth={1.6} />
+            <Icon name={h.icon} size={24} strokeWidth={2} />
             <div>
               <div className="highlights__title">{h.title}</div>
               <div className="highlights__text">{h.text}</div>
@@ -116,7 +116,7 @@ export default function Overview({ listing, onShowDescription, onShowAmenities, 
         <ul className="amenities__list">
           {listing.amenities.map((a) => (
             <li key={a.label} className={`amenities__item${a.unavailable ? ' amenities__item--unavailable' : ''}`}>
-              <Icon name={a.icon} size={24} strokeWidth={1.6} />
+              <Icon name={a.icon} size={24} strokeWidth={2} />
               {a.unavailable ? (
                 <>
                   <del>{a.label}</del>

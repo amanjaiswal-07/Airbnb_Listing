@@ -10,7 +10,7 @@ export default function ThingsToKnow({ items, onLearnMore }) {
       <div className="things__grid">
         {items.map((item) => (
           <div key={item.title} className="things__col">
-            <Icon name={item.icon} size={24} strokeWidth={1.6} />
+            <Icon name={item.icon} size={24} strokeWidth={2} />
             <h3 className="things__title">{item.title}</h3>
             {item.lines.map((line) => (
               <p key={line} className="things__line">

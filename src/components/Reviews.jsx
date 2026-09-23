@@ -85,7 +85,7 @@ export default function Reviews({ rating, reviewCount, summary, reviews, onShowA
           <div key={c.label} className="rating-bar__category">
             <div className="rating-bar__label">{c.label}</div>
             <div className="rating-bar__score">{c.score}</div>
-            <Icon name={c.icon} size={32} strokeWidth={1.4} />
+            <Icon name={c.icon} size={32} strokeWidth={1.8} />
           </div>
         ))}
       </div>

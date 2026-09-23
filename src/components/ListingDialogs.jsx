@@ -1,3 +1,4 @@
+import Icon from './Icon'
 import Modal from './Modal'
 import { ReviewItem } from './Reviews'
 import './ListingDialogs.css'
@@ -19,12 +20,16 @@ export default function ListingDialogs({ dialog, onClose, listing, reviews }) {
           {listing.amenityGroups.map((group) => (
             <section key={group.title} className="dialog-group">
               <h3 className="dialog-group__title">{group.title}</h3>
-              <ul className="dialog-list">
+              <ul className="dialog-list dialog-list--icons">
                 {group.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item}>
+                    <Icon name={listing.amenityIcons[item]} size={24} strokeWidth={2} />
+                    {item}
+                  </li>
                 ))}
                 {group.unavailable?.map((item) => (
-                  <li key={item}>
+                  <li key={item} className="dialog-list__unavailable">
+                    <Icon name={listing.amenityIcons[item]} size={24} strokeWidth={2} />
                     <del>{item}</del>
                     <span className="visually-hidden">(unavailable)</span>
                   </li>

@@ -14,15 +14,16 @@
   line-height: 22px;
 }
 
+/* Amenity groups — reference: heading 18/26, rows 57px (16px padding + 1px rule), 30px between groups */
 .dialog-group + .dialog-group {
-  margin-top: 32px;
+  margin-top: 30px;
 }
 
 .dialog-group__title {
-  margin-bottom: 8px;
+  margin-bottom: 3px;
   font-size: 18px;
   font-weight: 600;
-  line-height: 22px;
+  line-height: 26px;
 }
 
 .dialog-list {
@@ -36,6 +37,18 @@
   border-bottom: 1px solid var(--border-light);
   font-size: 16px;
   line-height: 20px;
+}
+
+.dialog-list--icons li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  line-height: 24px;
+}
+
+.dialog-list__unavailable {
+  color: var(--text-muted);
 }
 
 .dialog-reviews {
