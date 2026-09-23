@@ -1,0 +1,100 @@
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--bg);
+  outline: none;
+}
+
+.lightbox__bar {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 24px 0 16px;
+}
+
+.lightbox__caption {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.lightbox__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lightbox__counter {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.lightbox__icon-button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.lightbox__icon-button:hover {
+  background: var(--bg-soft);
+}
+
+.lightbox__stage {
+  position: absolute;
+  inset: 88px 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.lightbox__image {
+  height: 100%;
+  max-width: calc(100vw - 160px);
+  object-fit: contain;
+  pointer-events: auto;
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  border: 1px solid var(--text);
+  border-radius: 50%;
+  background: var(--bg);
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.lightbox__nav:hover:not(:disabled) {
+  background: var(--bg-soft);
+}
+
+.lightbox__nav:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.lightbox__nav:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.lightbox__nav--prev {
+  left: 20px;
+}
+
+.lightbox__nav--next {
+  right: 20px;
+}

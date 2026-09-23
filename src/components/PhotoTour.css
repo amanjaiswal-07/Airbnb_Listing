@@ -1,0 +1,204 @@
+.photo-tour {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  outline: none;
+}
+
+/* Reference: opens instantly, closes with a 300ms fade + 35px drop. */
+.photo-tour.is-closing {
+  animation: tour-out 0.3s var(--ease-standard) forwards;
+  pointer-events: none;
+}
+
+@keyframes tour-out {
+  to {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+}
+
+.photo-tour__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 88px;
+  padding: 0 32px 0 24px;
+  flex-shrink: 0;
+}
+
+.photo-tour__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 20px;
+}
+
+.photo-tour__icon-button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.photo-tour__icon-button:hover {
+  background: var(--bg-soft);
+}
+
+.photo-tour__scroll {
+  position: relative; /* offsetParent for section offsets */
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.photo-tour__content {
+  width: min(976px, calc(100% - 80px));
+  margin: 0 auto;
+  padding-bottom: 101px;
+}
+
+/* Room thumbnails */
+.photo-tour__thumbs {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 12px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.photo-tour__thumb {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border-radius: 8px;
+}
+
+.photo-tour__thumb-image {
+  display: block;
+  aspect-ratio: 112 / 105;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--placeholder);
+}
+
+.photo-tour__thumb-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-standard);
+}
+
+.photo-tour__thumb:hover .photo-tour__thumb-image img {
+  transform: scale(1.04);
+}
+
+.photo-tour__thumb-label {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-secondary);
+}
+
+/* Sections */
+.tour-section {
+  display: grid;
+  grid-template-columns: 1fr 458px;
+  column-gap: 60px;
+  margin-top: 20px;
+}
+
+nav + .tour-section {
+  margin-top: 58px;
+}
+
+.tour-section__intro {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+}
+
+.tour-section__title {
+  font-size: 32px;
+  font-weight: 650;
+  line-height: 36px;
+  letter-spacing: -0.5px;
+}
+
+.tour-section__amenities {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--text-secondary);
+}
+
+.tour-section__photos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tour-row {
+  display: grid;
+  gap: 12px;
+}
+
+.tour-row--pair {
+  grid-template-columns: 1fr 1fr;
+}
+
+.tour-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--placeholder);
+}
+
+.tour-row--full .tour-photo {
+  aspect-ratio: 458 / 305;
+}
+
+.tour-row--pair .tour-photo {
+  aspect-ratio: 223 / 149;
+}
+
+.tour-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-standard);
+}
+
+.tour-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background-color 0.2s ease;
+}
+
+.tour-photo:hover img {
+  transform: scale(1.04);
+}
+
+.tour-photo:hover::after {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.tour-photo:focus-visible {
+  box-shadow: none;
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}

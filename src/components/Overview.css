@@ -1,0 +1,257 @@
+/* Left-column sections: 1px top border + 32px vertical padding (reference geometry). */
+.overview .section {
+  padding: 32px 0;
+}
+
+.overview__summary {
+  padding-top: 47px;
+}
+
+.overview__subtitle {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.overview__facts {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 1px;
+}
+
+.laurel {
+  display: block;
+  width: auto;
+}
+
+/* Guest favourite card: 81px tall */
+.guest-fav {
+  display: flex;
+  align-items: center;
+  height: 81px;
+  margin-top: 33px;
+  padding: 0 28px 0 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.guest-fav__badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+  margin-right: 24px;
+  flex-shrink: 0;
+}
+
+.guest-fav__badge-text {
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: -0.2px;
+}
+
+.guest-fav__text {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.guest-fav__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.guest-fav__stat:first-of-type {
+  width: 58px;
+  margin-left: 22px;
+}
+
+.guest-fav__stat--link {
+  width: 50px;
+}
+
+.guest-fav__rating {
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 26px;
+}
+
+.guest-fav__label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.guest-fav__divider {
+  width: 1px;
+  height: 40px;
+  margin: 0 22px;
+  background: var(--border);
+}
+
+/* Host row */
+.host-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 26px 0;
+}
+
+.host-row__avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.host-row__name {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 23px;
+}
+
+.host-row__meta {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+/* Highlights */
+.highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
+  list-style: none;
+}
+
+.highlights__item {
+  display: flex;
+  gap: 24px;
+}
+
+.highlights__title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.highlights__text {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+/* Description */
+.description__banner {
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-soft);
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.description__original {
+  font-weight: 650;
+  text-decoration: underline;
+}
+
+.description__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 24.75px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 25px), rgba(0, 0, 0, 0.35) 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 25px), rgba(0, 0, 0, 0.35) 100%);
+}
+
+.description__more {
+  height: 21px;
+  margin-top: 14px;
+}
+
+/* Where you'll sleep */
+.sleep__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 318px each at the 652px column */
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.sleep__photo {
+  display: block;
+  width: 100%;
+  height: 212px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--placeholder);
+}
+
+.sleep__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-standard);
+}
+
+.sleep__photo:hover img {
+  transform: scale(1.04);
+}
+
+.sleep__name {
+  margin-top: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 21px;
+}
+
+.sleep__text {
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+/* Amenities: rows 48px apart, second column at +330px */
+.amenities__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 8px;
+  row-gap: 24px;
+  margin: 28px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.amenities__item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 24px;
+  font-size: 16px;
+  line-height: 23px;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+}
+
+.amenities__item del {
+  text-decoration: line-through;
+}

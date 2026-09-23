@@ -1,0 +1,10 @@
+main:focus {
+  outline: none;
+}
+
+.listing-body {
+  display: grid;
+  /* 652px / 372px at the 1120px column */
+  grid-template-columns: 58.2143% 33.2143%;
+  justify-content: space-between;
+}

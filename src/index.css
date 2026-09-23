@@ -1,0 +1,183 @@
+/* DM Sans has no rupee sign; borrow it from the system UI font. */
+@font-face {
+  font-family: 'Rupee';
+  src: local('Segoe UI'), local('Roboto'), local('Helvetica Neue'), local('Arial');
+  unicode-range: U+20B9;
+}
+
+:root {
+  --text: #222222;
+  --text-secondary: #6a6a6a;
+  --text-muted: #929292;
+  --border: #dddddd;
+  --border-light: #ebebeb;
+  --bg: #ffffff;
+  --bg-soft: #f7f7f7;
+  --bg-muted: #f2f2f2;
+  --placeholder: #ebebeb;
+  --brand: #ff385c;
+  --reserve-gradient: linear-gradient(90deg, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+  --font: 'Rupee', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #222222;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 88px;
+}
+
+.section {
+  border-top: 1px solid var(--border-light);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-width: 1024px;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Content column: 1120px, centred, with 80px gutters on narrower desktops. */
+.container {
+  width: min(1120px, 100% - 160px);
+  margin: 0 auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: 14px;
+  font-weight: 650;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* Shared text-link button: underlined, semibold. */
+.text-link {
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 20px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  border-radius: 4px;
+}
+
+.text-link-chevron {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.text-link-chevron span {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Outlined button used for "Show all …" actions. */
+.outline-button {
+  display: inline-block;
+  padding: 13px 23px;
+  border: 1px solid var(--text);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 20px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.outline-button:hover {
+  background: var(--bg-soft);
+}
+
+.outline-button:active {
+  transform: scale(0.96);
+}
+
+.section-divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

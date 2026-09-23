@@ -1,0 +1,59 @@
+.title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 30px;
+  margin-bottom: 21px;
+}
+
+.title-bar__title {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.2px;
+}
+
+.share-save {
+  display: flex;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.share-save__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 18px;
+  transition: background-color 0.2s ease;
+}
+
+.share-save__button span {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.share-save__button:hover {
+  background: var(--bg-soft);
+}
+
+.share-save__heart--saved {
+  color: var(--brand);
+}
+
+.share-save--compact {
+  gap: 4px;
+  margin-right: 0;
+}
+
+.share-save--compact .share-save__button {
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+}

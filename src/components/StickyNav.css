@@ -1,0 +1,96 @@
+.sticky-nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 20;
+  height: 67px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-light);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+.sticky-nav.is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sticky-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.sticky-nav__tabs {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sticky-nav__tab {
+  position: relative;
+  height: 64px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.sticky-nav__tab::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 13px;
+  height: 2px;
+  background: var(--text);
+  opacity: 0;
+}
+
+.sticky-nav__tab.is-active::after,
+.sticky-nav__tab:hover::after {
+  opacity: 1;
+}
+
+.sticky-nav__booking {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sticky-nav__summary {
+  font-size: 14px;
+  line-height: 18px;
+  text-align: right;
+}
+
+.sticky-nav__summary > div:first-child {
+  font-size: 14px;
+}
+
+.sticky-nav__summary strong {
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.sticky-nav__rating {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sticky-nav__reserve {
+  width: 93px;
+  height: 40px;
+  border-radius: 20px;
+  background: var(--reserve-gradient);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 650;
+}
