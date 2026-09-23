@@ -130,12 +130,17 @@
   display: none;
 }
 
+/* Chips keep their natural width; the row scrolls instead of squeezing them. */
+.review-tags > li {
+  flex-shrink: 0;
+}
+
 .review-tag {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   height: 48px;
-  padding: 0 20px 0 15px;
+  padding: 0 18px 0 14px;
   border: 1px solid var(--border);
   border-radius: 16px;
   white-space: nowrap;
@@ -153,6 +158,8 @@
 }
 
 .review-tag__count {
+  font-size: 14px;
+  line-height: 18px;
   color: var(--text-secondary);
 }
 
