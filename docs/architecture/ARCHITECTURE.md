@@ -13,7 +13,10 @@ The diagram describes how an Airbnb-scale product would be built. The bottom ban
 to the five areas in the brief — frontend, backend, storage, search, deployment — and the dashed box shows
 where this take-home (the Web client's listing page) sits in that picture.
 
-**Reading the diagram:** requests flow left → right (clients → edge → API → services); each service owns its
+**Reading the diagram:** requests flow left → right (clients → edge → API → services). Page HTML is
+served from the CDN; on a miss the CDN calls the **Web SSR / ISR tier** (Next.js), which renders the page from
+BFF data. App/API traffic goes edge → BFF directly. The image CDN pulls originals from S3 on a miss (the
+"origin fetch" arrow); each service owns its
 data store (the "Owner:" line in every data box — no shared database); dashed orange arrows are asynchronous
 events through Kafka.
 
@@ -30,10 +33,12 @@ events through Kafka.
 
 - **Next.js-style SSR + ISR** for listing pages: first paint is cached HTML at the edge
   (`s-maxage`, `stale-while-revalidate`), revalidated by `listing.updated` events rather than TTL alone.
+  Only cache misses reach the SSR tier: stateless Node pods that autoscale on RPS and call the BFF, so
+  rendering capacity scales independently of the API.
 - **Islands of interactivity**: the photo tour and lightbox load on demand; their state is URL-addressable
   (`?modal=PHOTO_TOUR_SCROLLABLE&modalItem=…`) so deep links are cacheable and shareable — the clone
   already implements this contract.
-- **Image CDN**: originals in object storage; the CDN serves width-specific AVIF/WebP via `srcset`.
+- **Image CDN**: originals in object storage (S3 is the CDN's origin, fetched once per rendition); the CDN serves width-specific AVIF/WebP via `srcset`.
   The listing grid only needs ~560px and ~272px renditions, the lightbox a viewport-sized one.
 - **Performance budget**: LCP image preloaded (`fetchpriority="high"`), everything below the fold lazy,
   fonts `display=swap`, RUM (Core Web Vitals) reported to observability.

@@ -41,8 +41,9 @@ const boxes = [
   { id: 'img', kind: 'edge', x: 300, y: 280, w: 250, h: 92, title: 'Image CDN', lines: ['On-the-fly resize, AVIF/WebP,', 'srcset widths, immutable cache'] },
   { id: 'edgefn', kind: 'edge', x: 300, y: 392, w: 250, h: 76, title: 'Edge functions', lines: ['Locale/currency, A/B bucketing'] },
   // api
-  { id: 'bff', kind: 'api', x: 590, y: 150, w: 220, h: 130, title: 'API gateway / BFF', lines: ['GraphQL/REST per client,', 'request fan-out, response', 'shaping, per-user rate limits,', 'idempotency keys on writes'] },
-  { id: 'idp', kind: 'api', x: 590, y: 300, w: 220, h: 76, title: 'Identity (OIDC)', lines: ['Sessions, JWT, MFA, KYC'] },
+  { id: 'ssr', kind: 'api', x: 590, y: 150, w: 220, h: 92, title: 'Web SSR / ISR (Next.js)', lines: ['Renders listing HTML on a CDN', 'miss; Node pods, autoscaled'] },
+  { id: 'bff', kind: 'api', x: 590, y: 262, w: 220, h: 130, title: 'API gateway / BFF', lines: ['GraphQL/REST per client,', 'request fan-out, response', 'shaping, per-user rate limits,', 'idempotency keys on writes'] },
+  { id: 'idp', kind: 'api', x: 590, y: 412, w: 220, h: 70, title: 'Identity (OIDC)', lines: ['Sessions, JWT, MFA, KYC'] },
   // services
   { id: 'listing', kind: 'svc', x: 850, y: 150, w: 200, h: 84, title: 'Listing', lines: ['Details, photo metadata,', 'amenities, host profile'] },
   { id: 'search', kind: 'svc', x: 1070, y: 150, w: 200, h: 84, title: 'Search & ranking', lines: ['Geo + date + price filters,', 'ML re-ranking'] },
@@ -105,10 +106,14 @@ const arrows = [
   { pts: [[260, 196], [286, 196]] },
   { pts: [[260, 300], [286, 300]] },
   { pts: [[260, 396], [286, 396]] },
-  // edge → BFF → identity / domain services
-  { pts: [[562, 205], [588, 205]] },
-  { pts: [[700, 280], [700, 298]] },
-  { pts: [[810, 215], [836, 215]] },
+  // edge → SSR (HTML on cache miss) → BFF; app/API traffic → BFF → identity / domain services
+  { pts: [[562, 196], [588, 196]] },
+  { pts: [[700, 242], [700, 260]] },
+  { pts: [[562, 320], [588, 320]] },
+  { pts: [[700, 392], [700, 410]] },
+  { pts: [[810, 320], [836, 320]] },
+  // image CDN pulls photo originals from object storage
+  { pts: [[1300, 655], [1290, 655], [1290, 756], [22, 756], [22, 348], [298, 348]] },
   // booking saga: hold availability, take payment
   { pts: [[950, 354], [950, 338]] },
   { pts: [[1050, 396], [1068, 396]] },
@@ -122,6 +127,9 @@ const arrows = [
 // Small arrow labels
 const labels = [
   { x: 956, y: 348, text: 'hold' },
+  { x: 564, y: 190, text: 'miss' },
+  { x: 564, y: 314, text: 'API' },
+  { x: 640, y: 750, text: 'origin fetch: photo originals (S3 → image CDN)' },
   { x: 1068, y: 570, text: 'outbox / CDC events' },
   { x: 1236, y: 590, text: 'index' },
   { x: 556, y: 700, text: 'events' },

@@ -34,15 +34,19 @@
 <rect x="300" y="392" width="250" height="76" rx="12" fill="#fff4f6" stroke="#ff385c" stroke-width="1.5"/>
 <text x="318" y="420" font-size="15" font-weight="700" fill="#222">Edge functions</text>
 <text x="318" y="442" font-size="12.5" fill="#555">Locale/currency, A/B bucketing</text>
-<rect x="590" y="150" width="220" height="130" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
-<text x="608" y="178" font-size="15" font-weight="700" fill="#222">API gateway / BFF</text>
-<text x="608" y="200" font-size="12.5" fill="#555">GraphQL/REST per client,</text>
-<text x="608" y="218" font-size="12.5" fill="#555">request fan-out, response</text>
-<text x="608" y="236" font-size="12.5" fill="#555">shaping, per-user rate limits,</text>
-<text x="608" y="254" font-size="12.5" fill="#555">idempotency keys on writes</text>
-<rect x="590" y="300" width="220" height="76" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
-<text x="608" y="328" font-size="15" font-weight="700" fill="#222">Identity (OIDC)</text>
-<text x="608" y="350" font-size="12.5" fill="#555">Sessions, JWT, MFA, KYC</text>
+<rect x="590" y="150" width="220" height="92" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="608" y="178" font-size="15" font-weight="700" fill="#222">Web SSR / ISR (Next.js)</text>
+<text x="608" y="200" font-size="12.5" fill="#555">Renders listing HTML on a CDN</text>
+<text x="608" y="218" font-size="12.5" fill="#555">miss; Node pods, autoscaled</text>
+<rect x="590" y="262" width="220" height="130" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="608" y="290" font-size="15" font-weight="700" fill="#222">API gateway / BFF</text>
+<text x="608" y="312" font-size="12.5" fill="#555">GraphQL/REST per client,</text>
+<text x="608" y="330" font-size="12.5" fill="#555">request fan-out, response</text>
+<text x="608" y="348" font-size="12.5" fill="#555">shaping, per-user rate limits,</text>
+<text x="608" y="366" font-size="12.5" fill="#555">idempotency keys on writes</text>
+<rect x="590" y="412" width="220" height="70" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="608" y="440" font-size="15" font-weight="700" fill="#222">Identity (OIDC)</text>
+<text x="608" y="462" font-size="12.5" fill="#555">Sessions, JWT, MFA, KYC</text>
 <rect x="850" y="150" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
 <text x="868" y="178" font-size="15" font-weight="700" fill="#222">Listing</text>
 <text x="868" y="200" font-size="12.5" fill="#555">Details, photo metadata,</text>
@@ -165,9 +169,12 @@
 <path d="M260 196 L286 196" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
 <path d="M260 300 L286 300" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
 <path d="M260 396 L286 396" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M562 205 L588 205" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M700 280 L700 298" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M810 215 L836 215" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M562 196 L588 196" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M700 242 L700 260" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M562 320 L588 320" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M700 392 L700 410" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M810 320 L836 320" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M1300 655 L1290 655 L1290 756 L22 756 L22 348 L298 348" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
 <path d="M950 354 L950 338" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
 <path d="M1050 396 L1068 396" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
 <path d="M1060 552 L1060 598" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
@@ -175,6 +182,9 @@
 <path d="M590 685 L552 685" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
 <path d="M590 625 L572 625 L572 440 L564 440" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
 <text x="956" y="348" font-size="11.5" font-style="italic" fill="#8a6d2b">hold</text>
+<text x="564" y="190" font-size="11.5" font-style="italic" fill="#8a6d2b">miss</text>
+<text x="564" y="314" font-size="11.5" font-style="italic" fill="#8a6d2b">API</text>
+<text x="640" y="750" font-size="11.5" font-style="italic" fill="#8a6d2b">origin fetch: photo originals (S3 → image CDN)</text>
 <text x="1068" y="570" font-size="11.5" font-style="italic" fill="#8a6d2b">outbox / CDC events</text>
 <text x="1236" y="590" font-size="11.5" font-style="italic" fill="#8a6d2b">index</text>
 <text x="556" y="700" font-size="11.5" font-style="italic" fill="#8a6d2b">events</text>

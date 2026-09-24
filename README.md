@@ -229,16 +229,19 @@ write-up is in [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECT
 
 1. **Clients** (web, iOS/Android, host tools) go through the **edge**: a global CDN + WAF serving ISR HTML and
    static assets, an image CDN for resized AVIF/WebP, and edge functions for locale and A/B bucketing.
-2. The **API gateway / BFF** shapes responses per client, applies rate limits and idempotency keys,
+   The image CDN pulls photo originals from **object storage (S3)** on a cache miss (the long "origin fetch" arrow).
+2. On an HTML cache **miss**, the CDN goes to the **Web SSR / ISR tier** (autoscaled Next.js pods), which renders
+   the listing page by calling the BFF. App and API traffic goes from the edge straight to the BFF.
+3. The **API gateway / BFF** shapes responses per client, applies rate limits and idempotency keys,
    authenticates via **Identity (OIDC)**, and fans out to stateless **domain services**: Listing, Search &
    ranking, Availability, Pricing, Booking, Payments, Reviews, Messaging.
-3. **Booking is a saga:** it places a *hold* in Availability, takes payment through Payments, then confirms, with
+4. **Booking is a saga:** it places a *hold* in Availability, takes payment through Payments, then confirms, with
    compensations on failure. A Postgres exclusion constraint makes double-booking impossible.
-4. **Each service owns its data** (the "Owner:" line on every data box): Postgres for listings and bookings,
+5. **Each service owns its data** (the "Owner:" line on every data box): Postgres for listings and bookings,
    Redis, OpenSearch, object storage and a wide-column store. There is no shared database.
-5. Services publish domain events through a transactional **outbox / CDC** to **Kafka**. Consumers index
+6. Services publish domain events through a transactional **outbox / CDC** to **Kafka**. Consumers index
    OpenSearch, **purge edge caches and revalidate ISR pages**, send notifications and feed **analytics / ML**.
-6. The bottom band gives the **scaling strategy** for each area the brief asks for: frontend, backend,
+7. The bottom band gives the **scaling strategy** for each area the brief asks for: frontend, backend,
    storage, search and deployment. The dashed note shows where this take-home sits: the web client's
    listing page, whose URL-addressable overlay state (`?modal=…&modalItem=…`) is already cache- and
    SSR-friendly.
