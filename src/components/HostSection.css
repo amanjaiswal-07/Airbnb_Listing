@@ -137,7 +137,7 @@
 
 .host__cohosts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 247px); /* reference pitch; allowed to overhang like the reference */
   row-gap: 16px;
   margin: 16px 0 0;
   padding: 0;
@@ -190,4 +190,10 @@
   font-size: 12px;
   line-height: 17px;
   color: var(--text-secondary);
+}
+
+@media (max-width: 1279px) {
+  .host__cohosts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

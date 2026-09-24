@@ -13,7 +13,7 @@
 .promo {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding: 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius);

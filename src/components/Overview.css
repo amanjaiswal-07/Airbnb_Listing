@@ -73,7 +73,7 @@
   border-radius: 4px;
 }
 
-.guest-fav__stat:first-of-type {
+.guest-fav__stat--rating {
   width: 58px;
   margin-left: 22px;
 }
@@ -236,7 +236,7 @@
   grid-template-columns: repeat(2, 1fr);
   column-gap: 8px;
   row-gap: 24px;
-  margin: 28px 0;
+  margin: 26px 0 30px;
   padding: 0;
   list-style: none;
 }

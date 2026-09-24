@@ -27,7 +27,7 @@ export function ReviewItem({ review, onShowMore, expanded = false }) {
         </div>
       </header>
       <div className="review__meta">
-        <Stars size={9} />
+        <Stars size={10} />
         <span className="visually-hidden">Rating, 5 stars,</span>
         <span aria-hidden="true">·</span>
         <span>{review.date}</span>

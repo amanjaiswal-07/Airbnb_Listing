@@ -29,7 +29,7 @@ function GuestFavouriteCard({ rating, reviewCount, onReviewsClick }) {
         <Laurel side="right" height={36} />
       </div>
       <p className="guest-fav__text">One of the most loved homes on Airbnb, according to guests</p>
-      <div className="guest-fav__stat">
+      <div className="guest-fav__stat guest-fav__stat--rating">
         <div className="guest-fav__rating">{rating}</div>
         <Stars size={10} />
         <span className="visually-hidden">Rated {rating} out of 5 stars.</span>

@@ -85,7 +85,7 @@
   border: 1.5px solid transparent;
 }
 
-.cal-day__button:hover:not(:disabled) {
+.cal-day__button:hover:not([aria-disabled]) {
   border-color: var(--text);
 }
 

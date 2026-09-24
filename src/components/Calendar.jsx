@@ -1,20 +1,18 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Icon from './Icon'
 import { addDays, addMonths, fromKey, longDate, monthLabel, monthMatrix, nightsBetween, shortDate, toKey } from '../lib/dates'
 import './Calendar.css'
 
 const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
-function Month({ month, range, isDisabled, onSelect, focusKey, setFocusKey, gridRef }) {
+function Month({ month, range, isDisabled, onSelect, focusKey, onMoveFocus }) {
   const { checkIn, checkOut } = range
 
   const handleKeyDown = (event, date) => {
     const moves = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }
     if (!(event.key in moves)) return
     event.preventDefault()
-    const next = toKey(addDays(date, moves[event.key]))
-    setFocusKey(next)
-    requestAnimationFrame(() => gridRef.current?.querySelector(`[data-date="${next}"]`)?.focus())
+    onMoveFocus(toKey(addDays(date, moves[event.key])))
   }
 
   return (
@@ -56,11 +54,11 @@ function Month({ month, range, isDisabled, onSelect, focusKey, setFocusKey, grid
                       type="button"
                       data-date={key}
                       className="cal-day__button"
-                      disabled={disabled}
+                      aria-disabled={disabled || undefined}
                       tabIndex={key === focusKey ? 0 : -1}
                       aria-pressed={isStart || isEnd}
                       aria-label={`${longDate(date)}${disabled ? ', unavailable' : ''}${isStart ? ', check-in date' : ''}${isEnd ? ', checkout date' : ''}`}
-                      onClick={() => onSelect(key)}
+                      onClick={() => !disabled && onSelect(key)}
                       onKeyDown={(e) => handleKeyDown(e, date)}
                     >
                       {date.getDate()}
@@ -84,9 +82,41 @@ export default function Calendar({ range, onChange, unavailable, location, today
   })
   const [focusKey, setFocusKey] = useState(checkIn ?? toKey(today))
   const gridRef = useRef(null)
+  const pendingFocus = useRef(null)
 
   const todayKey = toKey(today)
   const isDisabled = (key) => key < todayKey || unavailable.has(key)
+  const thisMonth = new Date(today.getFullYear(), today.getMonth(), 1)
+
+  // Arrow keys: move the roving tab stop, paging the two visible months when needed.
+  const moveFocus = (key) => {
+    const target = fromKey(key)
+    const targetMonth = new Date(target.getFullYear(), target.getMonth(), 1)
+    if (targetMonth < thisMonth) return
+    if (targetMonth < firstMonth) setFirstMonth(targetMonth)
+    else if (targetMonth > addMonths(firstMonth, 1)) setFirstMonth(addMonths(targetMonth, -1))
+    setFocusKey(key)
+    pendingFocus.current = key
+  }
+
+  useEffect(() => {
+    if (!pendingFocus.current) return
+    gridRef.current?.querySelector(`[data-date="${pendingFocus.current}"]`)?.focus()
+    pendingFocus.current = null
+  })
+
+  // Keep one reachable tab stop inside the visible months (e.g. after paging with the arrows).
+  const visibleEnd = toKey(new Date(firstMonth.getFullYear(), firstMonth.getMonth() + 2, 0))
+  const inView = focusKey >= toKey(firstMonth) && focusKey <= visibleEnd
+  let tabStop = focusKey
+  if (!inView) {
+    for (let d = new Date(firstMonth); toKey(d) <= visibleEnd; d = addDays(d, 1)) {
+      if (!isDisabled(toKey(d))) {
+        tabStop = toKey(d)
+        break
+      }
+    }
+  }
 
   const select = (key) => {
     if (!checkIn || checkOut || key <= checkIn) {
@@ -141,9 +171,8 @@ export default function Calendar({ range, onChange, unavailable, location, today
             range={range}
             isDisabled={isDisabled}
             onSelect={select}
-            focusKey={focusKey}
-            setFocusKey={setFocusKey}
-            gridRef={gridRef}
+            focusKey={tabStop}
+            onMoveFocus={moveFocus}
           />
         ))}
       </div>
