@@ -13,6 +13,8 @@ How this clone was built with AI assistance, and how that process is captured as
 
 ## Phases and prompts
 
+The complete prompt sequence (verbatim, in order, with what each produced) is in [`PROMPTS.md`](PROMPTS.md).
+
 The work followed the phased brief I gave the agent (condensed):
 
 > *"You are a senior frontend engineer and UI replication specialist… The reference website is the source of

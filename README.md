@@ -39,8 +39,8 @@ to build it.
 | Listing page, Photo tour, Lightbox | [`src/`](src) · live at the link above |
 | Visual fidelity and behavioural parity | [How fidelity was achieved](#how-fidelity-was-achieved) · raw measurements in [`docs/REFERENCE_NOTES.md`](docs/REFERENCE_NOTES.md) |
 | Animations, transitions, accessibility | [Animations](#animations-and-transitions) · [Accessibility](#accessibility) |
-| Production architecture diagram | [`docs/architecture/`](docs/architecture/ARCHITECTURE.md): PNG, SVG and editable **Excalidraw** file, generated from code |
-| Modern AI workflow (agents, sub-agents, skills, prompts) | [`docs/AI_WORKFLOW.md`](docs/AI_WORKFLOW.md) |
+| Production architecture diagram | [`docs/architecture/`](docs/architecture/ARCHITECTURE.md): **PDF**, PNG, SVG and editable **Excalidraw** file, generated from code |
+| Modern AI workflow (agents, sub-agents, skills, prompts) | [`docs/AI_WORKFLOW.md`](docs/AI_WORKFLOW.md) · full **prompt sequence** in [`docs/PROMPTS.md`](docs/PROMPTS.md) |
 | Sub-agent and skill configs (code quality, project structure) | [`CLAUDE.md`](CLAUDE.md), [`AGENTS.md`](AGENTS.md), [`.claude/agents/`](.claude/agents), [`.claude/skills/`](.claude/skills), [`.claude/settings.json`](.claude/settings.json) |
 
 ---
@@ -222,7 +222,7 @@ write-up is in [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECT
 | File | Use |
 |---|---|
 | [`architecture.excalidraw`](docs/architecture/architecture.excalidraw) | **Editable.** Open it at [excalidraw.com](https://excalidraw.com) via Menu → Open, or drag the file onto the canvas |
-| [`architecture.png`](docs/architecture/architecture.png) / [`.svg`](docs/architecture/architecture.svg) | Rendered versions |
+| [`architecture.pdf`](docs/architecture/architecture.pdf) / [`.png`](docs/architecture/architecture.png) / [`.svg`](docs/architecture/architecture.svg) | Rendered versions |
 | [`build-diagram.mjs`](docs/architecture/build-diagram.mjs) | Diagram-as-code: one spec generates both the SVG and the Excalidraw file, so they never drift |
 
 **How to read it:** requests flow left → right, and dashed orange arrows are asynchronous events.
@@ -252,8 +252,9 @@ write-up is in [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECT
 
 The project was built with **Claude Code** as the primary agent. It drove the user's Chrome (Claude in Chrome)
 to inspect the reference and the built-in browser to test the clone. The full account is in
-[`docs/AI_WORKFLOW.md`](docs/AI_WORKFLOW.md): phases, the actual prompts, guardrails, measurement techniques,
-and what the agent was not allowed to do.
+[`docs/AI_WORKFLOW.md`](docs/AI_WORKFLOW.md): phases, guardrails, measurement techniques,
+and what the agent was not allowed to do. Every prompt I gave, verbatim and in order, is in
+[`docs/PROMPTS.md`](docs/PROMPTS.md).
 
 The repeatable parts of that loop (**build → probe → review → fix**) are saved as configuration, so the next
 change follows the same checks whether a person or an agent makes it:
@@ -303,9 +304,10 @@ src/
 public/images/            photos/, ui/, chips/, avatars/, similar/ (real assets from the reference)
 docs/
   REFERENCE_NOTES.md      measured geometry + behaviour of the reference
-  AI_WORKFLOW.md          how AI was used, prompts, guardrails
+  AI_WORKFLOW.md          how AI was used, guardrails, techniques
+  PROMPTS.md              full prompt sequence, verbatim, in order
   reference/              visible-text transcript + probe baseline
-  architecture/           diagram (PNG/SVG/Excalidraw), its generator, write-up
+  architecture/           diagram (PDF/PNG/SVG/Excalidraw), its generator, write-up
 scripts/
   probe.js                layout probe, run on both pages and diffed
   assets.mjs              asset export snippet + import script

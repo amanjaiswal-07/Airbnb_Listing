@@ -4,6 +4,7 @@
 
 | File | Use |
 |---|---|
+| [`architecture.pdf`](architecture.pdf) | Rendered diagram, single-page vector PDF |
 | [`architecture.png`](architecture.png) | Rendered diagram (2400px) |
 | [`architecture.svg`](architecture.svg) | Vector version, renders on GitHub |
 | [`architecture.excalidraw`](architecture.excalidraw) | Editable — open at [excalidraw.com](https://excalidraw.com) → *Open* |
