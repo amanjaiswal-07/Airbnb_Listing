@@ -1,195 +1,175 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1120" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="#555"/>
-    </marker>
-    <style>
-      .title { font-size: 28px; font-weight: 700; fill: #222; }
-      .sub { font-size: 15px; fill: #6a6a6a; }
-      .lane { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; fill: #8a8a8a; }
-      .box { fill: #fff; stroke: #c8c8c8; stroke-width: 1.5; }
-      .h { font-size: 15px; font-weight: 700; fill: #222; }
-      .t { font-size: 12.5px; fill: #555; }
-      .edge { fill: #fff4f6; stroke: #ff385c; stroke-width: 1.5; }
-      .svc { fill: #f3f7ff; stroke: #5b7fd6; stroke-width: 1.5; }
-      .data { fill: #f2faf4; stroke: #3f9a5c; stroke-width: 1.5; }
-      .async { fill: #fff8ec; stroke: #d99a2b; stroke-width: 1.5; }
-      .ops { fill: #f6f6f6; stroke: #9a9a9a; stroke-width: 1.5; }
-      .line { stroke: #555; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
-      .dash { stroke: #d99a2b; stroke-width: 1.6; fill: none; stroke-dasharray: 6 5; marker-end: url(#arrow); }
-    </style>
-  </defs>
-
-  <rect width="1600" height="1120" fill="#ffffff"/>
-  <text x="40" y="52" class="title">Vacation-rental marketplace — production architecture</text>
-  <text x="40" y="80" class="sub">Read-heavy browse/search at the edge · strongly consistent booking core · event-driven fan-out · multi-region</text>
-
-  <!-- Lanes -->
-  <text x="40" y="130" class="lane">CLIENTS</text>
-  <text x="300" y="130" class="lane">EDGE</text>
-  <text x="590" y="130" class="lane">API LAYER</text>
-  <text x="850" y="130" class="lane">DOMAIN SERVICES  (Kubernetes, HPA autoscaling)</text>
-  <text x="1300" y="130" class="lane">DATA</text>
-
-  <!-- Clients -->
-  <rect x="40" y="150" width="220" height="92" rx="12" class="box"/>
-  <text x="58" y="178" class="h">Web (React / Next.js)</text>
-  <text x="58" y="200" class="t">SSR + ISR listing pages,</text>
-  <text x="58" y="218" class="t">client hydration, SPA overlays</text>
-
-  <rect x="40" y="262" width="220" height="76" rx="12" class="box"/>
-  <text x="58" y="290" class="h">iOS / Android</text>
-  <text x="58" y="312" class="t">Same BFF, push notifications</text>
-
-  <rect x="40" y="358" width="220" height="76" rx="12" class="box"/>
-  <text x="58" y="386" class="h">Hosts &amp; internal tools</text>
-  <text x="58" y="408" class="t">Calendar, pricing, support</text>
-
-  <!-- Edge -->
-  <rect x="300" y="150" width="250" height="110" rx="12" class="edge"/>
-  <text x="318" y="178" class="h">Global CDN + WAF</text>
-  <text x="318" y="200" class="t">Static JS/CSS, ISR HTML (s-maxage +</text>
-  <text x="318" y="218" class="t">stale-while-revalidate), bot mgmt,</text>
-  <text x="318" y="236" class="t">DDoS / rate limits, geo-DNS</text>
-
-  <rect x="300" y="280" width="250" height="92" rx="12" class="edge"/>
-  <text x="318" y="308" class="h">Image CDN</text>
-  <text x="318" y="330" class="t">On-the-fly resize, AVIF/WebP,</text>
-  <text x="318" y="348" class="t">srcset widths, immutable cache</text>
-
-  <rect x="300" y="392" width="250" height="76" rx="12" class="edge"/>
-  <text x="318" y="420" class="h">Edge functions</text>
-  <text x="318" y="442" class="t">Locale/currency, A/B bucketing</text>
-
-  <!-- API layer -->
-  <rect x="590" y="150" width="220" height="130" rx="12" class="box"/>
-  <text x="608" y="178" class="h">API gateway / BFF</text>
-  <text x="608" y="200" class="t">GraphQL/REST per client,</text>
-  <text x="608" y="218" class="t">request fan-out, response</text>
-  <text x="608" y="236" class="t">shaping, per-user rate limits,</text>
-  <text x="608" y="254" class="t">idempotency keys on writes</text>
-
-  <rect x="590" y="300" width="220" height="76" rx="12" class="box"/>
-  <text x="608" y="328" class="h">Identity (OIDC)</text>
-  <text x="608" y="350" class="t">Sessions, JWT, MFA, KYC</text>
-
-  <!-- Services -->
-  <rect x="850" y="150" width="200" height="84" rx="12" class="svc"/>
-  <text x="866" y="178" class="h">Listing</text>
-  <text x="866" y="200" class="t">Details, photos meta,</text>
-  <text x="866" y="218" class="t">amenities, host profile</text>
-
-  <rect x="1070" y="150" width="200" height="84" rx="12" class="svc"/>
-  <text x="1086" y="178" class="h">Search &amp; ranking</text>
-  <text x="1086" y="200" class="t">Geo + date + price filters,</text>
-  <text x="1086" y="218" class="t">ML re-ranking</text>
-
-  <rect x="850" y="252" width="200" height="84" rx="12" class="svc"/>
-  <text x="866" y="280" class="h">Availability</text>
-  <text x="866" y="302" class="t">Calendar, holds (TTL),</text>
-  <text x="866" y="320" class="t">min-stay rules, iCal sync</text>
-
-  <rect x="1070" y="252" width="200" height="84" rx="12" class="svc"/>
-  <text x="1086" y="280" class="h">Pricing</text>
-  <text x="1086" y="302" class="t">Nightly rates, fees, taxes,</text>
-  <text x="1086" y="320" class="t">coupons, FX</text>
-
-  <rect x="850" y="354" width="200" height="84" rx="12" class="svc"/>
-  <text x="866" y="382" class="h">Booking (saga)</text>
-  <text x="866" y="404" class="t">Hold → pay → confirm,</text>
-  <text x="866" y="422" class="t">compensations on failure</text>
-
-  <rect x="1070" y="354" width="200" height="84" rx="12" class="svc"/>
-  <text x="1086" y="382" class="h">Payments</text>
-  <text x="1086" y="404" class="t">PSP integration, payouts,</text>
-  <text x="1086" y="422" class="t">ledger (double-entry)</text>
-
-  <rect x="850" y="456" width="200" height="84" rx="12" class="svc"/>
-  <text x="866" y="484" class="h">Reviews</text>
-  <text x="866" y="506" class="t">Ratings aggregates,</text>
-  <text x="866" y="524" class="t">moderation</text>
-
-  <rect x="1070" y="456" width="200" height="84" rx="12" class="svc"/>
-  <text x="1086" y="484" class="h">Messaging &amp; notify</text>
-  <text x="1086" y="506" class="t">Host↔guest chat (WebSocket),</text>
-  <text x="1086" y="524" class="t">email / SMS / push</text>
-
-  <!-- Data -->
-  <rect x="1300" y="150" width="260" height="92" rx="12" class="data"/>
-  <text x="1318" y="178" class="h">PostgreSQL — listings</text>
-  <text x="1318" y="200" class="t">Sharded by listing_id,</text>
-  <text x="1318" y="218" class="t">read replicas per region</text>
-
-  <rect x="1300" y="258" width="260" height="92" rx="12" class="data"/>
-  <text x="1318" y="286" class="h">PostgreSQL — bookings</text>
-  <text x="1318" y="308" class="t">Home-region writes, exclusion</text>
-  <text x="1318" y="326" class="t">constraint on (listing, dates)</text>
-
-  <rect x="1300" y="366" width="260" height="76" rx="12" class="data"/>
-  <text x="1318" y="394" class="h">Redis cluster</text>
-  <text x="1318" y="416" class="t">Hot listings, holds, sessions</text>
-
-  <rect x="1300" y="458" width="260" height="76" rx="12" class="data"/>
-  <text x="1318" y="486" class="h">OpenSearch</text>
-  <text x="1318" y="508" class="t">Geo index, facets, autocomplete</text>
-
-  <rect x="1300" y="550" width="260" height="76" rx="12" class="data"/>
-  <text x="1318" y="578" class="h">Object storage (S3)</text>
-  <text x="1318" y="600" class="t">Originals → image CDN</text>
-
-  <rect x="1300" y="642" width="260" height="76" rx="12" class="data"/>
-  <text x="1318" y="670" class="h">Wide-column store</text>
-  <text x="1318" y="692" class="t">Messages, review text, activity</text>
-
-  <!-- Async backbone -->
-  <rect x="590" y="600" width="680" height="118" rx="12" class="async"/>
-  <text x="608" y="628" class="h">Event bus (Kafka) + workers</text>
-  <text x="608" y="652" class="t">Outbox/CDC from Postgres → topics: listing.updated, availability.changed, booking.confirmed, review.created</text>
-  <text x="608" y="672" class="t">Consumers: search indexer (near-real-time), cache invalidation + ISR revalidate, notifications, payouts,</text>
-  <text x="608" y="692" class="t">image pipeline (resize/moderate), analytics sink. At-least-once + idempotent handlers, DLQs.</text>
-
-  <rect x="40" y="600" width="510" height="118" rx="12" class="data"/>
-  <text x="58" y="628" class="h">Analytics &amp; ML</text>
-  <text x="58" y="652" class="t">Data lake + warehouse, feature store, offline training for</text>
-  <text x="58" y="672" class="t">search ranking, dynamic pricing suggestions, fraud scoring;</text>
-  <text x="58" y="692" class="t">online inference behind the Search / Pricing services.</text>
-
-  <!-- Platform / ops -->
-  <rect x="40" y="760" width="1520" height="170" rx="12" class="ops"/>
-  <text x="58" y="790" class="h">Platform, delivery &amp; operations</text>
-  <text x="58" y="818" class="t">CI/CD: GitHub Actions → lint, unit, visual-regression + a11y checks → container build → Argo CD canary rollouts (auto-rollback on SLO burn). Frontend: preview deploys per PR.</text>
-  <text x="58" y="840" class="t">Infra as code (Terraform). Multi-region active-active for reads; bookings pinned to a listing's home region; Postgres cross-region async replicas for DR (RPO &lt; 1 min).</text>
-  <text x="58" y="862" class="t">Observability: OpenTelemetry traces, Prometheus/Grafana SLOs (p95 listing TTFB, search latency, booking success), structured logs, RUM (Core Web Vitals) from the web client.</text>
-  <text x="58" y="884" class="t">Security: secrets manager, mTLS service mesh, PCI scope isolated to Payments, PII encryption at rest, GDPR deletion via event fan-out.</text>
-  <text x="58" y="906" class="t">Scaling levers: CDN hit-rate first, then read replicas + Redis, stateless services on HPA (CPU/RPS), queue-based load levelling for spikes, search shards by region.</text>
-
-  <!-- This project -->
-  <rect x="40" y="960" width="1520" height="120" rx="12" fill="#ffffff" stroke="#ff385c" stroke-width="1.5" stroke-dasharray="6 5"/>
-  <text x="58" y="990" class="h">Where this take-home sits</text>
-  <text x="58" y="1014" class="t">The clone is the "Web" client's listing page: a static React SPA (Vite) served from a CDN (Vercel). Listing data lives in a typed module (src/data/listing.js) that mirrors the Listing /</text>
-  <text x="58" y="1034" class="t">Reviews / Availability responses a BFF would return, so swapping it for a fetch is a local change. Photo tour and lightbox state is URL-addressable (?modal=…&amp;modalItem=…),</text>
-  <text x="58" y="1054" class="t">which is what lets SSR/ISR render the same overlay deep links and the CDN cache them per URL.</text>
-
-  <!-- Arrows: clients → edge → api → services -->
-  <path d="M260 196 H298" class="line"/>
-  <path d="M260 300 C280 300 280 210 298 210" class="line"/>
-  <path d="M260 396 C285 396 285 225 298 225" class="line"/>
-  <path d="M550 205 H588" class="line"/>
-  <path d="M810 192 H848" class="line"/>
-  <path d="M810 215 C830 215 830 294 848 294" class="line"/>
-  <path d="M810 240 C835 240 835 396 848 396" class="line"/>
-  <path d="M700 280 V298" class="line"/>
-
-  <!-- services → data -->
-  <path d="M1270 192 H1298" class="line"/>
-  <path d="M1270 214 C1285 214 1285 490 1298 490" class="line"/>
-  <path d="M1270 396 C1285 396 1285 304 1298 304" class="line"/>
-  <path d="M1270 294 C1288 294 1288 400 1298 400" class="line"/>
-  <path d="M1270 498 C1288 498 1288 680 1298 680" class="line"/>
-
-  <!-- async -->
-  <path d="M950 540 V598" class="dash"/>
-  <path d="M1170 540 V598" class="dash"/>
-  <path d="M1270 640 C1290 640 1290 520 1298 520" class="dash"/>
-  <path d="M590 660 H552" class="dash"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1210" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#555"/></marker>
+<marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#d99a2b"/></marker></defs>
+<rect width="1600" height="1210" fill="#fff"/>
+<text x="40" y="52" font-size="28" font-weight="700" fill="#222">Vacation-rental marketplace — production architecture</text>
+<text x="40" y="80" font-size="15" fill="#6a6a6a">Read-heavy browse/search served from the edge · strongly consistent booking core · event-driven fan-out · multi-region</text>
+<text x="40" y="130" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">CLIENTS</text>
+<text x="300" y="130" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">EDGE</text>
+<text x="590" y="130" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">API LAYER</text>
+<text x="850" y="130" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">DOMAIN SERVICES  (stateless, Kubernetes + HPA)</text>
+<text x="1300" y="130" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">DATA</text>
+<text x="40" y="806" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">SCALING STRATEGY</text>
+<rect x="40" y="150" width="220" height="92" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="58" y="178" font-size="15" font-weight="700" fill="#222">Web (React / Next.js)</text>
+<text x="58" y="200" font-size="12.5" fill="#555">SSR + ISR listing pages,</text>
+<text x="58" y="218" font-size="12.5" fill="#555">client-side overlays</text>
+<rect x="40" y="262" width="220" height="76" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="58" y="290" font-size="15" font-weight="700" fill="#222">iOS / Android</text>
+<text x="58" y="312" font-size="12.5" fill="#555">Same BFF, push notifications</text>
+<rect x="40" y="358" width="220" height="76" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="58" y="386" font-size="15" font-weight="700" fill="#222">Hosts &amp; internal tools</text>
+<text x="58" y="408" font-size="12.5" fill="#555">Calendar, pricing, support</text>
+<rect x="300" y="150" width="250" height="110" rx="12" fill="#fff4f6" stroke="#ff385c" stroke-width="1.5"/>
+<text x="318" y="178" font-size="15" font-weight="700" fill="#222">Global CDN + WAF</text>
+<text x="318" y="200" font-size="12.5" fill="#555">Static JS/CSS, ISR HTML (s-maxage +</text>
+<text x="318" y="218" font-size="12.5" fill="#555">stale-while-revalidate), bot mgmt,</text>
+<text x="318" y="236" font-size="12.5" fill="#555">DDoS / rate limits, geo-DNS</text>
+<rect x="300" y="280" width="250" height="92" rx="12" fill="#fff4f6" stroke="#ff385c" stroke-width="1.5"/>
+<text x="318" y="308" font-size="15" font-weight="700" fill="#222">Image CDN</text>
+<text x="318" y="330" font-size="12.5" fill="#555">On-the-fly resize, AVIF/WebP,</text>
+<text x="318" y="348" font-size="12.5" fill="#555">srcset widths, immutable cache</text>
+<rect x="300" y="392" width="250" height="76" rx="12" fill="#fff4f6" stroke="#ff385c" stroke-width="1.5"/>
+<text x="318" y="420" font-size="15" font-weight="700" fill="#222">Edge functions</text>
+<text x="318" y="442" font-size="12.5" fill="#555">Locale/currency, A/B bucketing</text>
+<rect x="590" y="150" width="220" height="130" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="608" y="178" font-size="15" font-weight="700" fill="#222">API gateway / BFF</text>
+<text x="608" y="200" font-size="12.5" fill="#555">GraphQL/REST per client,</text>
+<text x="608" y="218" font-size="12.5" fill="#555">request fan-out, response</text>
+<text x="608" y="236" font-size="12.5" fill="#555">shaping, per-user rate limits,</text>
+<text x="608" y="254" font-size="12.5" fill="#555">idempotency keys on writes</text>
+<rect x="590" y="300" width="220" height="76" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="608" y="328" font-size="15" font-weight="700" fill="#222">Identity (OIDC)</text>
+<text x="608" y="350" font-size="12.5" fill="#555">Sessions, JWT, MFA, KYC</text>
+<rect x="850" y="150" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
+<text x="868" y="178" font-size="15" font-weight="700" fill="#222">Listing</text>
+<text x="868" y="200" font-size="12.5" fill="#555">Details, photo metadata,</text>
+<text x="868" y="218" font-size="12.5" fill="#555">amenities, host profile</text>
+<rect x="1070" y="150" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
+<text x="1088" y="178" font-size="15" font-weight="700" fill="#222">Search &amp; ranking</text>
+<text x="1088" y="200" font-size="12.5" fill="#555">Geo + date + price filters,</text>
+<text x="1088" y="218" font-size="12.5" fill="#555">ML re-ranking</text>
+<rect x="850" y="252" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
+<text x="868" y="280" font-size="15" font-weight="700" fill="#222">Availability</text>
+<text x="868" y="302" font-size="12.5" fill="#555">Calendar, holds (TTL),</text>
+<text x="868" y="320" font-size="12.5" fill="#555">min-stay rules, iCal sync</text>
+<rect x="1070" y="252" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
+<text x="1088" y="280" font-size="15" font-weight="700" fill="#222">Pricing</text>
+<text x="1088" y="302" font-size="12.5" fill="#555">Nightly rates, fees, taxes,</text>
+<text x="1088" y="320" font-size="12.5" fill="#555">coupons, FX</text>
+<rect x="850" y="354" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
+<text x="868" y="382" font-size="15" font-weight="700" fill="#222">Booking (saga)</text>
+<text x="868" y="404" font-size="12.5" fill="#555">Hold → pay → confirm,</text>
+<text x="868" y="422" font-size="12.5" fill="#555">compensations on failure</text>
+<rect x="1070" y="354" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
+<text x="1088" y="382" font-size="15" font-weight="700" fill="#222">Payments</text>
+<text x="1088" y="404" font-size="12.5" fill="#555">PSP integration, payouts,</text>
+<text x="1088" y="422" font-size="12.5" fill="#555">double-entry ledger</text>
+<rect x="850" y="456" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
+<text x="868" y="484" font-size="15" font-weight="700" fill="#222">Reviews</text>
+<text x="868" y="506" font-size="12.5" fill="#555">Rating aggregates,</text>
+<text x="868" y="524" font-size="12.5" fill="#555">moderation</text>
+<rect x="1070" y="456" width="200" height="84" rx="12" fill="#f3f7ff" stroke="#5b7fd6" stroke-width="1.5"/>
+<text x="1088" y="484" font-size="15" font-weight="700" fill="#222">Messaging &amp; notify</text>
+<text x="1088" y="506" font-size="12.5" fill="#555">Host↔guest chat (WebSocket),</text>
+<text x="1088" y="524" font-size="12.5" fill="#555">email / SMS / push</text>
+<rect x="1300" y="150" width="260" height="104" rx="12" fill="#f2faf4" stroke="#3f9a5c" stroke-width="1.5"/>
+<text x="1318" y="178" font-size="15" font-weight="700" fill="#222">PostgreSQL — listings</text>
+<text x="1318" y="200" font-size="12.5" fill="#555">Sharded by listing_id,</text>
+<text x="1318" y="218" font-size="12.5" fill="#555">read replicas per region</text>
+<text x="1318" y="236" font-size="12.5" fill="#555">Owner: Listing</text>
+<rect x="1300" y="266" width="260" height="104" rx="12" fill="#f2faf4" stroke="#3f9a5c" stroke-width="1.5"/>
+<text x="1318" y="294" font-size="15" font-weight="700" fill="#222">PostgreSQL — bookings</text>
+<text x="1318" y="316" font-size="12.5" fill="#555">Home-region writes; exclusion</text>
+<text x="1318" y="334" font-size="12.5" fill="#555">constraint on (listing, dates)</text>
+<text x="1318" y="352" font-size="12.5" fill="#555">Owner: Booking, Payments</text>
+<rect x="1300" y="382" width="260" height="86" rx="12" fill="#f2faf4" stroke="#3f9a5c" stroke-width="1.5"/>
+<text x="1318" y="410" font-size="15" font-weight="700" fill="#222">Redis cluster</text>
+<text x="1318" y="432" font-size="12.5" fill="#555">Hot listings, holds, sessions</text>
+<text x="1318" y="450" font-size="12.5" fill="#555">Used by: Availability, BFF</text>
+<rect x="1300" y="480" width="260" height="86" rx="12" fill="#f2faf4" stroke="#3f9a5c" stroke-width="1.5"/>
+<text x="1318" y="508" font-size="15" font-weight="700" fill="#222">OpenSearch</text>
+<text x="1318" y="530" font-size="12.5" fill="#555">Geo index, facets, autocomplete</text>
+<text x="1318" y="548" font-size="12.5" fill="#555">Owner: Search (fed by events)</text>
+<rect x="1300" y="578" width="260" height="86" rx="12" fill="#f2faf4" stroke="#3f9a5c" stroke-width="1.5"/>
+<text x="1318" y="606" font-size="15" font-weight="700" fill="#222">Object storage (S3)</text>
+<text x="1318" y="628" font-size="12.5" fill="#555">Photo originals → image CDN</text>
+<text x="1318" y="646" font-size="12.5" fill="#555">Owner: Listing media pipeline</text>
+<rect x="1300" y="676" width="260" height="86" rx="12" fill="#f2faf4" stroke="#3f9a5c" stroke-width="1.5"/>
+<text x="1318" y="704" font-size="15" font-weight="700" fill="#222">Wide-column store</text>
+<text x="1318" y="726" font-size="12.5" fill="#555">Messages, review text, activity</text>
+<text x="1318" y="744" font-size="12.5" fill="#555">Owner: Messaging, Reviews</text>
+<rect x="590" y="600" width="680" height="118" rx="12" fill="#fff8ec" stroke="#d99a2b" stroke-width="1.5"/>
+<text x="608" y="628" font-size="15" font-weight="700" fill="#222">Event bus (Kafka) + workers</text>
+<text x="608" y="650" font-size="12.5" fill="#555">Outbox/CDC from Postgres → listing.updated, availability.changed, booking.confirmed, review.created</text>
+<text x="608" y="668" font-size="12.5" fill="#555">Consumers: search indexer (near-real-time), cache purge + ISR revalidate, notifications, payouts,</text>
+<text x="608" y="686" font-size="12.5" fill="#555">image pipeline (resize / moderate), analytics sink. At-least-once + idempotent handlers, DLQs.</text>
+<rect x="40" y="600" width="510" height="118" rx="12" fill="#f2faf4" stroke="#3f9a5c" stroke-width="1.5"/>
+<text x="58" y="628" font-size="15" font-weight="700" fill="#222">Analytics &amp; ML</text>
+<text x="58" y="650" font-size="12.5" fill="#555">Data lake + warehouse, feature store; offline training for</text>
+<text x="58" y="668" font-size="12.5" fill="#555">search ranking, pricing suggestions and fraud scoring;</text>
+<text x="58" y="686" font-size="12.5" fill="#555">online inference behind the Search / Pricing services.</text>
+<rect x="40" y="822" width="291.2" height="196" rx="12" fill="#fafafa" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="58" y="850" font-size="15" font-weight="700" fill="#222">Frontend</text>
+<text x="58" y="872" font-size="12.5" fill="#555">ISR HTML cached at the edge;</text>
+<text x="58" y="891" font-size="12.5" fill="#555">revalidated by listing events</text>
+<text x="58" y="910" font-size="12.5" fill="#555">Image CDN + srcset (LCP image</text>
+<text x="58" y="929" font-size="12.5" fill="#555">preloaded, rest lazy)</text>
+<text x="58" y="948" font-size="12.5" fill="#555">Overlays code-split; URL-</text>
+<text x="58" y="967" font-size="12.5" fill="#555">addressable (?modal=…)</text>
+<text x="58" y="986" font-size="12.5" fill="#555">RUM Core Web Vitals budgets</text>
+<rect x="347.2" y="822" width="291.2" height="196" rx="12" fill="#fafafa" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="365.2" y="850" font-size="15" font-weight="700" fill="#222">Backend</text>
+<text x="365.2" y="872" font-size="12.5" fill="#555">Stateless services, HPA on</text>
+<text x="365.2" y="891" font-size="12.5" fill="#555">CPU / RPS; BFF fan-out</text>
+<text x="365.2" y="910" font-size="12.5" fill="#555">Rate limits + idempotency keys</text>
+<text x="365.2" y="929" font-size="12.5" fill="#555">Booking = saga with holds (TTL)</text>
+<text x="365.2" y="948" font-size="12.5" fill="#555">Queue-based load levelling</text>
+<text x="365.2" y="967" font-size="12.5" fill="#555">for launch / holiday spikes</text>
+<text x="365.2" y="986" font-size="12.5" fill="#555">Split services only on measured</text>
+<text x="365.2" y="1005" font-size="12.5" fill="#555">bottlenecks</text>
+<rect x="654.4" y="822" width="291.2" height="196" rx="12" fill="#fafafa" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="672.4" y="850" font-size="15" font-weight="700" fill="#222">Storage</text>
+<text x="672.4" y="872" font-size="12.5" fill="#555">Postgres sharded by listing_id,</text>
+<text x="672.4" y="891" font-size="12.5" fill="#555">regional read replicas</text>
+<text x="672.4" y="910" font-size="12.5" fill="#555">Bookings pinned to a home region;</text>
+<text x="672.4" y="929" font-size="12.5" fill="#555">exclusion constraint = no</text>
+<text x="672.4" y="948" font-size="12.5" fill="#555">double booking</text>
+<text x="672.4" y="967" font-size="12.5" fill="#555">Redis read-through for hot</text>
+<text x="672.4" y="986" font-size="12.5" fill="#555">listings; S3 + lifecycle tiers</text>
+<rect x="961.5999999999999" y="822" width="291.2" height="196" rx="12" fill="#fafafa" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="979.5999999999999" y="850" font-size="15" font-weight="700" fill="#222">Search</text>
+<text x="979.5999999999999" y="872" font-size="12.5" fill="#555">OpenSearch shards per region;</text>
+<text x="979.5999999999999" y="891" font-size="12.5" fill="#555">rebuilt from events, never the</text>
+<text x="979.5999999999999" y="910" font-size="12.5" fill="#555">source of truth</text>
+<text x="979.5999999999999" y="929" font-size="12.5" fill="#555">Near-real-time indexing via CDC</text>
+<text x="979.5999999999999" y="948" font-size="12.5" fill="#555">Availability re-checked on the</text>
+<text x="979.5999999999999" y="967" font-size="12.5" fill="#555">booking path</text>
+<text x="979.5999999999999" y="986" font-size="12.5" fill="#555">ML re-rank inside Search service</text>
+<rect x="1268.8" y="822" width="291.2" height="196" rx="12" fill="#fafafa" stroke="#9a9a9a" stroke-width="1.5"/>
+<text x="1286.8" y="850" font-size="15" font-weight="700" fill="#222">Deployment</text>
+<text x="1286.8" y="872" font-size="12.5" fill="#555">Frontend: CDN/Vercel, preview</text>
+<text x="1286.8" y="891" font-size="12.5" fill="#555">deploy per PR</text>
+<text x="1286.8" y="910" font-size="12.5" fill="#555">Services: GitHub Actions → image</text>
+<text x="1286.8" y="929" font-size="12.5" fill="#555">→ Argo CD canary, SLO auto-rollback</text>
+<text x="1286.8" y="948" font-size="12.5" fill="#555">Terraform; multi-region active-</text>
+<text x="1286.8" y="967" font-size="12.5" fill="#555">active reads, DR replicas</text>
+<text x="1286.8" y="986" font-size="12.5" fill="#555">OpenTelemetry traces + SLOs</text>
+<rect x="40" y="1060" width="1520" height="110" rx="12" fill="#ffffff" stroke="#ff385c" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="58" y="1088" font-size="15" font-weight="700" fill="#222">Where this take-home sits</text>
+<text x="58" y="1110" font-size="12.5" fill="#555">The clone is the "Web" client's listing page: a static React SPA (Vite) served from a CDN (Vercel). Listing data lives in src/data/listing.js, shaped like the</text>
+<text x="58" y="1128" font-size="12.5" fill="#555">Listing / Reviews / Availability responses a BFF would return, so swapping it for a fetch is a local change. Photo tour and lightbox state is URL-addressable</text>
+<text x="58" y="1146" font-size="12.5" fill="#555">(?modal=PHOTO_TOUR_SCROLLABLE&amp;modalItem=…), which is what lets SSR/ISR render the same overlay deep links and the CDN cache them per URL.</text>
+<path d="M260 196 L298 196" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M260 300 L280 300 L280 210 L298 210" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M260 396 L285 396 L285 225 L298 225" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M550 205 L588 205" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M700 280 L700 298" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M810 192 L848 192" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M810 215 L830 215 L830 294 L848 294" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M810 240 L835 240 L835 396 L848 396" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M950 540 L950 598" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
+<path d="M1170 540 L1170 598" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
+<path d="M1270 640 L1286 640 L1286 523 L1298 523" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
+<path d="M590 660 L552 660" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
 </svg>

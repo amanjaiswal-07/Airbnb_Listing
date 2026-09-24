@@ -1,9 +1,21 @@
 # Production architecture — vacation-rental marketplace
 
-![Architecture diagram](architecture.svg)
+![Architecture diagram](architecture.png)
 
-The diagram describes how an Airbnb-scale product would be built; the take-home clone is the **Web client's
-listing page** in that picture (see the dashed box at the bottom).
+| File | Use |
+|---|---|
+| [`architecture.png`](architecture.png) | Rendered diagram (2400px) |
+| [`architecture.svg`](architecture.svg) | Vector version, renders on GitHub |
+| [`architecture.excalidraw`](architecture.excalidraw) | Editable — open at [excalidraw.com](https://excalidraw.com) → *Open* |
+| [`build-diagram.mjs`](build-diagram.mjs) | Diagram-as-code source that generates the SVG and Excalidraw files (`node docs/architecture/build-diagram.mjs`) |
+
+The diagram describes how an Airbnb-scale product would be built. The bottom band maps the **scaling strategy**
+to the five areas in the brief — frontend, backend, storage, search, deployment — and the dashed box shows
+where this take-home (the Web client's listing page) sits in that picture.
+
+**Reading the diagram:** requests flow left → right (clients → edge → API → services); each service owns its
+data store (the "Owner:" line in every data box — no shared database); dashed orange arrows are asynchronous
+events through Kafka.
 
 ## Traffic shape drives the design
 

@@ -5,10 +5,20 @@ A high-fidelity, desktop-only clone of the listing page at
 
 **Live:** https://airbnb-listing-blond.vercel.app · **Repo:** https://github.com/amanjaiswal-07/Airbnb_Listing
 
-- **Stack:** React 19 + Vite, plain CSS (co-located per component), no UI or animation libraries.
-- **Deliverables:** the app (`src/`), the [production architecture diagram](docs/architecture/ARCHITECTURE.md),
-  and the AI workflow configuration ([`CLAUDE.md`](CLAUDE.md), [`.claude/agents`](.claude/agents),
-  [`.claude/skills`](.claude/skills), [`.claude/settings.json`](.claude/settings.json)).
+**Stack:** React 19 + Vite, plain CSS (co-located per component), no UI or animation libraries.
+
+## Submission at a glance
+
+| Brief item | Where |
+|---|---|
+| Listing page, Photo tour, Lightbox | [`src/`](src) · live at the link above |
+| Visual fidelity & behavioural parity | [How fidelity was achieved](#how-fidelity-was-achieved) · measurements in [`docs/REFERENCE_NOTES.md`](docs/REFERENCE_NOTES.md) |
+| Animations, transitions, accessibility | [Photo tour](#photo-tour-modalphoto_tour_scrollable), [Lightbox](#lightbox-modalitem1000--index), [Accessibility](#accessibility) |
+| Production architecture diagram | [`docs/architecture/`](docs/architecture/ARCHITECTURE.md) — PNG, SVG and editable **Excalidraw** file |
+| Modern AI workflow (agents, sub-agents, skills, prompts) | [`docs/AI_WORKFLOW.md`](docs/AI_WORKFLOW.md) |
+| Sub-agent / skill configs (code quality, project structure) | [`CLAUDE.md`](CLAUDE.md), [`AGENTS.md`](AGENTS.md), [`.claude/agents/`](.claude/agents), [`.claude/skills/`](.claude/skills), [`.claude/settings.json`](.claude/settings.json) |
+
+![Architecture diagram](docs/architecture/architecture.png)
 
 ## Run it
 
@@ -92,7 +102,9 @@ scripts/
 ## AI-assisted workflow
 
 Built with Claude Code as the primary agent, driving the user's Chrome (Claude in Chrome) for reference
-inspection and the built-in browser for the clone. The repeatable parts are captured as configuration:
+inspection and the built-in browser for the clone. The full story — phases, prompts, guardrails and
+measurement techniques — is in [`docs/AI_WORKFLOW.md`](docs/AI_WORKFLOW.md). The repeatable parts are captured
+as configuration:
 
 | File | Purpose |
 |---|---|
