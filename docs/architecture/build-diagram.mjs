@@ -16,6 +16,7 @@ const palette = {
   async: { fill: '#fff8ec', stroke: '#d99a2b' },
   scale: { fill: '#fafafa', stroke: '#9a9a9a' },
   note: { fill: '#ffffff', stroke: '#ff385c', dashed: true },
+  group: { fill: 'transparent', stroke: '#b8b8b8', dashed: true },
 }
 
 // ── Spec ───────────────────────────────────────────────────────────────────────
@@ -28,6 +29,9 @@ const lanes = [
 ]
 
 const boxes = [
+  // group containers (drawn first, behind their members)
+  { id: 'g-edge', kind: 'group', x: 288, y: 140, w: 274, h: 340, title: '', lines: [] },
+  { id: 'g-svc', kind: 'group', x: 838, y: 140, w: 444, h: 412, title: '', lines: [] },
   // clients
   { id: 'web', kind: 'client', x: 40, y: 150, w: 220, h: 92, title: 'Web (React / Next.js)', lines: ['SSR + ISR listing pages,', 'client-side overlays'] },
   { id: 'mobile', kind: 'client', x: 40, y: 262, w: 220, h: 76, title: 'iOS / Android', lines: ['Same BFF, push notifications'] },
@@ -97,18 +101,32 @@ boxes.push({
 
 // Connectors: [points…], dashed = async/event flow
 const arrows = [
-  { pts: [[260, 196], [298, 196]] },
-  { pts: [[260, 300], [280, 300], [280, 210], [298, 210]] },
-  { pts: [[260, 396], [285, 396], [285, 225], [298, 225]] },
-  { pts: [[550, 205], [588, 205]] },
+  // clients → edge network
+  { pts: [[260, 196], [286, 196]] },
+  { pts: [[260, 300], [286, 300]] },
+  { pts: [[260, 396], [286, 396]] },
+  // edge → BFF → identity / domain services
+  { pts: [[562, 205], [588, 205]] },
   { pts: [[700, 280], [700, 298]] },
-  { pts: [[810, 192], [848, 192]] },
-  { pts: [[810, 215], [830, 215], [830, 294], [848, 294]] },
-  { pts: [[810, 240], [835, 240], [835, 396], [848, 396]] },
-  { pts: [[950, 540], [950, 598]], dashed: true },
-  { pts: [[1170, 540], [1170, 598]], dashed: true },
+  { pts: [[810, 215], [836, 215]] },
+  // booking saga: hold availability, take payment
+  { pts: [[950, 354], [950, 338]] },
+  { pts: [[1050, 396], [1068, 396]] },
+  // events
+  { pts: [[1060, 552], [1060, 598]], dashed: true },
   { pts: [[1270, 640], [1286, 640], [1286, 523], [1298, 523]], dashed: true },
-  { pts: [[590, 660], [552, 660]], dashed: true },
+  { pts: [[590, 685], [552, 685]], dashed: true },
+  { pts: [[590, 625], [572, 625], [572, 440], [564, 440]], dashed: true },
+]
+
+// Small arrow labels
+const labels = [
+  { x: 956, y: 348, text: 'hold' },
+  { x: 1068, y: 570, text: 'outbox / CDC events' },
+  { x: 1236, y: 590, text: 'index' },
+  { x: 556, y: 700, text: 'events' },
+  { x: 580, y: 496, text: 'cache purge /' },
+  { x: 580, y: 511, text: 'ISR revalidate' },
 ]
 
 const title = 'Vacation-rental marketplace — production architecture'
@@ -128,13 +146,14 @@ svg.push(`<text x="40" y="${scaleTop + 16}" font-size="13" font-weight="700" let
 for (const b of boxes) {
   const p = palette[b.kind]
   svg.push(`<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="12" fill="${p.fill}" stroke="${p.stroke}" stroke-width="1.5"${p.dashed ? ' stroke-dasharray="6 5"' : ''}/>`)
-  svg.push(`<text x="${b.x + 18}" y="${b.y + 28}" font-size="15" font-weight="700" fill="#222">${esc(b.title)}</text>`)
+  if (b.title) svg.push(`<text x="${b.x + 18}" y="${b.y + 28}" font-size="15" font-weight="700" fill="#222">${esc(b.title)}</text>`)
   b.lines.forEach((l, i) => svg.push(`<text x="${b.x + 18}" y="${b.y + 50 + i * (b.kind === 'scale' ? 19 : 18)}" font-size="12.5" fill="#555">${esc(l)}</text>`))
 }
 for (const a of arrows) {
   const d = a.pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x} ${y}`).join(' ')
   svg.push(`<path d="${d}" fill="none" stroke="${a.dashed ? '#d99a2b' : '#555'}" stroke-width="1.6"${a.dashed ? ' stroke-dasharray="6 5"' : ''} marker-end="url(#${a.dashed ? 'ad' : 'a'})"/>`)
 }
+for (const l of labels) svg.push(`<text x="${l.x}" y="${l.y}" font-size="11.5" font-style="italic" fill="#8a6d2b">${esc(l.text)}</text>`)
 svg.push('</svg>')
 writeFileSync(join(OUT, 'architecture.svg'), svg.join('\n') + '\n')
 
@@ -199,8 +218,8 @@ for (const b of boxes) {
       roundness: { type: 3 },
     }),
   )
-  els.push(text(b.x + 16, b.y + 12, b.title, 16, '#1e1e1e', true))
-  els.push(text(b.x + 16, b.y + 38, b.lines.join('\n'), 13, '#555'))
+  if (b.title) els.push(text(b.x + 16, b.y + 12, b.title, 16, '#1e1e1e', true))
+  if (b.lines.length) els.push(text(b.x + 16, b.y + 38, b.lines.join('\n'), 13, '#555'))
 }
 for (const a of arrows) {
   const [x0, y0] = a.pts[0]
@@ -221,6 +240,7 @@ for (const a of arrows) {
     }),
   )
 }
+for (const l of labels) els.push(text(l.x, l.y - 12, l.text, 12, '#8a6d2b'))
 const scene = {
   type: 'excalidraw',
   version: 2,

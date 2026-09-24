@@ -10,6 +10,8 @@
 <text x="850" y="130" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">DOMAIN SERVICES  (stateless, Kubernetes + HPA)</text>
 <text x="1300" y="130" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">DATA</text>
 <text x="40" y="806" font-size="13" font-weight="700" letter-spacing="1.5" fill="#8a8a8a">SCALING STRATEGY</text>
+<rect x="288" y="140" width="274" height="340" rx="12" fill="transparent" stroke="#b8b8b8" stroke-width="1.5" stroke-dasharray="6 5"/>
+<rect x="838" y="140" width="444" height="412" rx="12" fill="transparent" stroke="#b8b8b8" stroke-width="1.5" stroke-dasharray="6 5"/>
 <rect x="40" y="150" width="220" height="92" rx="12" fill="#ffffff" stroke="#9a9a9a" stroke-width="1.5"/>
 <text x="58" y="178" font-size="15" font-weight="700" fill="#222">Web (React / Next.js)</text>
 <text x="58" y="200" font-size="12.5" fill="#555">SSR + ISR listing pages,</text>
@@ -160,16 +162,22 @@
 <text x="58" y="1110" font-size="12.5" fill="#555">The clone is the "Web" client's listing page: a static React SPA (Vite) served from a CDN (Vercel). Listing data lives in src/data/listing.js, shaped like the</text>
 <text x="58" y="1128" font-size="12.5" fill="#555">Listing / Reviews / Availability responses a BFF would return, so swapping it for a fetch is a local change. Photo tour and lightbox state is URL-addressable</text>
 <text x="58" y="1146" font-size="12.5" fill="#555">(?modal=PHOTO_TOUR_SCROLLABLE&amp;modalItem=…), which is what lets SSR/ISR render the same overlay deep links and the CDN cache them per URL.</text>
-<path d="M260 196 L298 196" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M260 300 L280 300 L280 210 L298 210" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M260 396 L285 396 L285 225 L298 225" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M550 205 L588 205" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M260 196 L286 196" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M260 300 L286 300" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M260 396 L286 396" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M562 205 L588 205" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
 <path d="M700 280 L700 298" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M810 192 L848 192" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M810 215 L830 215 L830 294 L848 294" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M810 240 L835 240 L835 396 L848 396" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
-<path d="M950 540 L950 598" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
-<path d="M1170 540 L1170 598" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
+<path d="M810 215 L836 215" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M950 354 L950 338" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M1050 396 L1068 396" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M1060 552 L1060 598" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
 <path d="M1270 640 L1286 640 L1286 523 L1298 523" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
-<path d="M590 660 L552 660" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
+<path d="M590 685 L552 685" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
+<path d="M590 625 L572 625 L572 440 L564 440" fill="none" stroke="#d99a2b" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#ad)"/>
+<text x="956" y="348" font-size="11.5" font-style="italic" fill="#8a6d2b">hold</text>
+<text x="1068" y="570" font-size="11.5" font-style="italic" fill="#8a6d2b">outbox / CDC events</text>
+<text x="1236" y="590" font-size="11.5" font-style="italic" fill="#8a6d2b">index</text>
+<text x="556" y="700" font-size="11.5" font-style="italic" fill="#8a6d2b">events</text>
+<text x="580" y="496" font-size="11.5" font-style="italic" fill="#8a6d2b">cache purge /</text>
+<text x="580" y="511" font-size="11.5" font-style="italic" fill="#8a6d2b">ISR revalidate</text>
 </svg>
