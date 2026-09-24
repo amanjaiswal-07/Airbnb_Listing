@@ -3,6 +3,8 @@
 A high-fidelity, desktop-only clone of the listing page at
 **https://airbnb-clone-umber-two.vercel.app**, including the **Photo tour** and **Lightbox** overlays.
 
+**Live:** https://airbnb-listing-blond.vercel.app · **Repo:** https://github.com/amanjaiswal-07/Airbnb_Listing
+
 - **Stack:** React 19 + Vite, plain CSS (co-located per component), no UI or animation libraries.
 - **Deliverables:** the app (`src/`), the [production architecture diagram](docs/architecture/ARCHITECTURE.md),
   and the AI workflow configuration ([`CLAUDE.md`](CLAUDE.md), [`.claude/agents`](.claude/agents),
