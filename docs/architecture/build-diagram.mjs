@@ -189,7 +189,7 @@ const base = (type, x, y, w, h, extra = {}) => ({
 })
 const text = (x, y, str, size, color = '#1e1e1e', bold = false) => {
   const lines = str.split('\n')
-  return base('text', x, y, Math.max(...lines.map((l) => l.length)) * size * 0.55, lines.length * size * 1.25, {
+  return base('text', x, y, Math.max(...lines.map((l) => l.length)) * size * 0.66, lines.length * size * 1.25, {
     strokeColor: color,
     text: str,
     originalText: str,
